@@ -1,40 +1,107 @@
-# rl-kuiper-escape
-A project to  build an AI player for custom game (Kuiper Escape) using reinforcement learning (RL) algorithms.
+# Reinforcement Learning to Train PyGame Agent
+
+## Overview 
+
+The purpose of this project is to demonstrate how reinforcement learning can be used to train an AI Agent/Player in a custom home-built python game
+
+## Demo - Trained Agent (A2C)
+
+`TODO: Insert GIF`
+
+## Custom Gym Environment
+
+### Game Overview - Kuiper Escape
+
+The objective of the game is to live as long as you can, while avoiding the asteroids in the Kuiper Belt. The player starts centered in the screen, an can move in any direction using the keyboard arrows.  Asteroids are generated with random sizes, speeds, and starting locations. The game ends once all player lives have expired.
+
+Check out the repo for the custom Open AI Gym environment using PyGame framework -->  [REPO](https://github.com/jdegregorio/gym-kuiper-escape)
+
+<img width="405" alt="image" src="https://user-images.githubusercontent.com/20359930/144731391-99aa8834-6744-48e8-8a18-8ea3e0c8d2af.png">
+
+### Actions 
+
+The user has the following discrete actions:
+ * 0: Don't move
+ * 1: Up
+ * 2: Right
+ * 3: Down
+ * 4: Left
+ * 5: Up/Right Diagnal
+ * 6: Right/Down Diagnal
+ * 7: Down/Left Diagnal
+ * 8: Left/Up Diagnal
+
+### State/Observations
+
+The state/observation is a "virtual" lidar system. It sends off virtual
+beams of light in all directions to gather an array of points describing
+the distance and characteristics of nearby objects. The size of the lidar array and resulting observation/state space is configurable when the environment is initialized
+
+The observation data (for each beam in the lidar array):
+ * Distance (i.e. radial distance from player to terminating point of lidar beam)
+ * Collision detection
+   * 0 if terminated at edge of screen, or at max radius distance
+   * 1 if collided with a rock
+
+**Example Visualizations of State**
+
+<img width="264" alt="image" src="https://user-images.githubusercontent.com/20359930/146223524-e07f7dd8-7e5e-40e2-a374-fdb20f987153.png">
+<img width="261" alt="image" src="https://user-images.githubusercontent.com/20359930/146223615-de23593f-02df-4ef1-b356-87153208d6f1.png">
+
+Note: The yellow dots (1 collide state) represent contact with a rock, the green dots (0 collide state) represent contact with wall or open space.
+
+### Rewards
+
+The environment will provide the following rewards:
+ * Reward of 1 for each step without losing life
+ * No reward is given if the player is in the corners of the screen
 
 ## Setup
 
-
-Pre-requisites:
-```
-pip install tensorflow
-```
-
-Installing Baselines
+### Installation
+First it is recommended to setup a virtual environment:
 ```bash
-sudo apt-get update && sudo apt-get install cmake libopenmpi-dev python3-dev zlib1g-dev
+python -m venv .env
+source .env/bin/activate
 ```
 
+Update pip and wheel to ensure a smooth installation process:
+```bash
+pip install --upgrade pip
+pip install --upgrade wheel
+```
 
-## DQN Parmeters
+Finally, install package locally with pip:
+```bash
+git clone https://github.com/jdegregorio/gym-kuiper-escape.git
+pip install -e gym-kuiper-escape
+```
 
- * param learning_rate: The learning rate, it can be a function of the current progress remaining (from 1 to 0)
- * param buffer_size: size of the replay buffer
- * param learning_starts: how many steps of the model to collect transitions for before learning starts
- * param batch_size: Minibatch size for each gradient update
- * param tau: the soft update coefficient ("Polyak update", between 0 and 1) default 1 for hard update
- * param gamma: the discount factor
- * param train_freq: Update the model every ``train_freq`` steps. Alternatively pass a tuple of frequency and unit like ``(5, "step")`` or ``(2, "episode")``. Set to ``-1`` means to do as many gradient steps as steps done in the environment during the rollout.
- * param replay_buffer_class: Replay buffer class to use (for instance ``HerReplayBuffer``). If ``None``, it will be automatically selected.
- * param replay_buffer_kwargs: Keyword arguments to pass to the replay buffer on creation.
- * param optimize_memory_usage: Enable a memory efficient variant of the replay buffer at a cost of more complexity.
- * param target_update_interval: update the target network every ``target_update_interval`` environment steps.
- * param exploration_fraction: fraction of entire training period over which the exploration rate is reduced
- * param exploration_initial_eps: initial value of random action probability
- * param exploration_final_eps: final value of random action probability
- * param max_grad_norm: The maximum value for the gradient clipping
- * param tensorboard_log: the log location for tensorboard (if None, no logging) used for evaluating the agent periodically. (Only available when passing string for the environment)
- * param policy_kwargs: additional arguments to be passed to the policy on creation
- * param verbose: the verbosity level: 0 no output, 1 info, 2 debug
- * param seed: Seed for the pseudo random generators
- * param device: Device (cpu, cuda, ...) on which the code should be run. Setting it to auto, the code will be run on the GPU if possible.
- * param _init_setup_model: Whether or not to build the network at the creation of the instance
+To uninstall, use the following:
+```bash
+pip uninstall gym-kuiper-escape
+```
+
+### Development Environment Details
+ * Python Version: 3.8.10
+ * Operating System: Ubuntu 20.04.3 LTS
+
+## Background & Resources
+
+### Open AI Gym Framework
+Open AI Gym provides a standardized framework for training reinforcement learning models. The framework has numerous built-in environments (often games) for experimentation, but also enables users to define their own custom environments.
+
+ * [Open AI Gym Documentation](https://gym.openai.com/docs/)
+ * [Creating Customer Environments](https://github.com/openai/gym/blob/master/docs/creating_environments.md)
+ * [Example Custom Environment](https://github.com/openai/gym-soccer/blob/master/gym_soccer/envs/soccer_env.py)
+ * [Core Open AI Gym Clases](https://github.com/openai/gym/blob/master/gym/core.py)
+
+### PyGame Framework
+
+PyGame is a framework for developing games within python. 
+
+This [tutorial](https://realpython.com/pygame-a-primer/) is a great primer for getting started.
+
+### Stable Baselines
+
+Stable baselines was the primary reinforcement learning framework used for this project. It provides a great set of algorithms and monitoring tools to get started. Future work on this project will explore other packages such as Acme.
