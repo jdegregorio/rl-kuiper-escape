@@ -1,0 +1,26 @@
+stages:
+  train:
+    cmd: python train.py
+    deps:
+      - params.yaml
+    params:
+      - model_params.dqn.learning_rate
+      - model_params.dqn.buffer_size
+      - model_params.dqn.batch_size
+      - model_params.dqn.tau
+      - model_params.dqn.gamma
+      - model_params.dqn.train_freq
+      - model_params.dqn.gradient_steps
+      - model_params.dqn.target_update_interval
+      - model_params.dqn.exploration_fraction
+      - model_params.dqn.exploration_initial_eps
+      - model_params.dqn.exploration_final_eps
+      - model_params.dqn.max_grad_norm
+    outs:
+      - model.zip
+    metrics:
+      - metrics.txt:
+          cache: false
+    plots:
+      - learning_curve.json:
+          cache: false
