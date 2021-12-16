@@ -6,7 +6,17 @@ The purpose of this project is to demonstrate how reinforcement learning can be 
 
 ## Demo - Trained Agent (A2C)
 
-`TODO: Insert GIF`
+![Alt Text](https://thumbs.gfycat.com/AlertBronzeAmericanmarten-size_restricted.gif)
+
+## Tensorboard Monitoring
+
+<img width="611" alt="image" src="https://user-images.githubusercontent.com/20359930/146314502-af9f7ddf-be9e-452f-a8cb-a06d8d31e36e.png">
+
+Once training has started, you can monitor via tensorboard with the following command:
+
+```bash
+tensorboard --logdir './tensorboard/'
+```
 
 ## Custom Gym Environment
 
@@ -14,9 +24,10 @@ The purpose of this project is to demonstrate how reinforcement learning can be 
 
 The objective of the game is to live as long as you can, while avoiding the asteroids in the Kuiper Belt. The player starts centered in the screen, an can move in any direction using the keyboard arrows.  Asteroids are generated with random sizes, speeds, and starting locations. The game ends once all player lives have expired.
 
-Check out the repo for the custom Open AI Gym environment using PyGame framework :point_right:  [REPO](https://github.com/jdegregorio/gym-kuiper-escape)
+Check out the repo for the custom Open AI Gym environment using PyGame framework:
 
-<img width="405" alt="image" src="https://user-images.githubusercontent.com/20359930/144731391-99aa8834-6744-48e8-8a18-8ea3e0c8d2af.png">
+:point_right:  :point_right:  :point_right:  :point_right:  [Custom PyGame Open AI Gym Environment - Kuiper Escape](https://github.com/jdegregorio/gym-kuiper-escape) :point_left:  :point_left:  :point_left:  :point_left:
+
 
 ### Actions 
 
